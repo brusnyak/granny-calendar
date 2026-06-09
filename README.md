@@ -1,93 +1,56 @@
 # 📅 Granny Calendar
 
-A simple, no-nonsense calendar app for **Granny's Android phone**.
-
-## ❓ The Problem
-
-Google Calendar's app icon used to show the **actual day of the month**. After an update it got stuck on **31** — forever. Granny didn't like that.
-
-## ✅ The Solution
-
-A custom calendar app where:
-
-- **The launcher icon shows the real date** — today's day number, updated automatically at midnight
-- **Big, readable UI** — giant date display + full month grid, swipeable months
-- **No setup needed** — install the APK and it just works
+A simple, no-nonsense calendar app for **Granny's Android phone** — with notes, reminders, and a real date on the icon.
 
 ## ⬇️ Download
 
-### Latest Release (v1.0.0)
+> **Tap a link on your phone** to download and install.
 
-| For your phone | Download |
-|---|---|
-| **Most modern phones (64-bit)** — Samsung S8+, A series, etc. | [📲 app-arm64-v8a-release.apk](https://github.com/brusnyak/granny-calendar/releases/download/v1.0.0/app-arm64-v8a-release.apk) |
-| **Older phones (32-bit)** — Samsung S6, S7, J series | [📲 app-armeabi-v7a-release.apk](https://github.com/brusnyak/granny-calendar/releases/download/v1.0.0/app-armeabi-v7a-release.apk) |
-
-> **Not sure which one?** Try `arm64-v8a` first. If it doesn't install, try `armeabi-v7a`.
+[📲 **Download for most phones (arm64-v8a)**](https://github.com/brusnyak/granny-calendar/releases/latest)
 
 ### How to install
 
-1. **Download the APK** on her phone (tap the link above)
-2. **Open the downloaded file** — Android will ask to allow installation from unknown sources
-3. **Tap "Install"**
-4. **Open the app** once — the icon will immediately update to today's date
-5. After that, the icon updates **automatically at midnight** every day
+1. Tap the link above on your phone
+2. Android will ask **"Allow installation from unknown sources?"** → tap **Settings** → enable it
+3. Tap **Install**
+4. Open the app once — the icon updates to today's date
+5. That's it. The icon updates automatically at midnight.
 
-### Installing remotely (AnyDesk)
+## ✨ What it does
 
-1. Download the APK on your computer
-2. Open AnyDesk to her phone
-3. Drag and drop the APK file into the AnyDesk window
-4. On her phone, tap the notification → Install
+- **Launcher icon shows the real date** — today's day number, updated every midnight
+- **Calendar** — month grid with navigation, today highlighted
+- **Notes & reminders** — tap a day or press `+` to add a note. Set a time and toggle 🔔 to get a notification
+- **Big, readable** — large date display, clear text, built for older eyes
+- **Ukrainian & Russian** — auto-detects your phone language
+- **No ads, no tracking, no internet needed**
 
-## ✨ Features
-
-- **Dynamic launcher icon** — shows today's day number (1–31)
-- **Auto-updates** — switches to the next day at midnight, even if the app isn't open
-- **Survives reboot** — re-schedules itself after phone restart
-- **Giant date display** — big enough for older eyes
-- **Month grid** — full calendar view with navigation
-- **Ukrainian & Russian** — auto-detects device language
-- **Clean, minimal** — no ads, no permissions, no nonsense
-
-## 🛠 How it works
+## 📸 What it looks like
 
 ```
-┌─────────────────────────────────────────┐
-│  AndroidManifest.xml                     │
-│  ┌─────────────────────────────────┐    │
-│  │  activity-alias Day01 (enabled) │    │
-│  │  activity-alias Day02 (disabled)│    │
-│  │  activity-alias Day03 (disabled)│    │
-│  │  ...                            │    │
-│  │  activity-alias Day31 (disabled)│    │
-│  └─────────────────────────────────┘    │
-│                                         │
-│  At midnight → AlarmManager fires       │
-│  → enables today's alias                │
-│  → disables all others                  │
-│  → launcher icon updates                │
-└─────────────────────────────────────────┘
+  ☰   ←  ЧЕРВЕНЬ 2026  →   +
+
+           9
+        вівторок
+
+  Пн    3  10  17  24
+  Вт    4  11  18  25
+  Ср    5  12  19  26
+  Чт    6  13  20  27
+  Пт    7  14  21  28
+  Сб    1   8  15  22  29
+  Нд    2   9  16  23  30
 ```
 
-**31 pre-generated icons** (one per day) are bundled in the APK. A native Java `AlarmManager` switches between them using Android's `activity-alias` mechanism.
+Tap a day → see your notes. Press `+` → add a note with time & reminder.
 
-## 🧑‍💻 Development
+## 🛠 Build from source
 
 ```bash
-# Get dependencies
 flutter pub get
-
-# Generate icons (if you modify them)
-python3 scripts/generate_icons.py
-python3 scripts/generate_android.py
-
-# Build APKs
-flutter build apk --release --split-per-abi --tree-shake-icons
+flutter build apk --release --split-per-abi
+python3 scripts/generate_icons.py   # optional: regenerate icons
+python3 scripts/generate_android.py # optional: regenerate Android files
 ```
 
-Built with **Flutter 3.35.5** + **Java** (Android native layer).
-
-## 📦 Build outputs
-
-Built APKs land in `build/app/outputs/flutter-apk/`.
+Built with **Flutter** + **Java** (Android native).
