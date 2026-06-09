@@ -17,7 +17,7 @@ class GrannyCalendarApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFFDC322F), // Calendar red
+          seedColor: const Color(0xFF2962FF), // Calendar blue
           brightness: Brightness.light,
         ),
         useMaterial3: true,

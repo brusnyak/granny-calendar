@@ -70,7 +70,7 @@ class _CalendarPageState extends State<CalendarPage> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: const Color(0xFFDC322F),
+        color: const Color(0xFF2962FF),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.15),
@@ -284,7 +284,7 @@ class _DayCell extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(2),
       decoration: BoxDecoration(
-        color: isToday ? const Color(0xFFDC322F) : Colors.transparent,
+        color: isToday ? const Color(0xFF2962FF) : Colors.transparent,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Center(
