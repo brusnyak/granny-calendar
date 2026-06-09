@@ -20,8 +20,14 @@ class AppStrings {
   });
 }
 
-// Ukrainian
-const ukStrings = AppStrings(
+/// Returns UI language strings based on device locale.
+/// Defaults to Ukrainian if neither Ukrainian nor Russian.
+AppStrings getStrings(String localeCode) {
+  if (localeCode.startsWith('ru')) return _ruStrings;
+  return _ukStrings;
+}
+
+final _ukStrings = AppStrings(
   yearLabel: (y) => '$y рік',
   months: [
     'Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень',
@@ -37,8 +43,7 @@ const ukStrings = AppStrings(
   tomorrow: 'Завтра',
 );
 
-// Russian
-const ruStrings = AppStrings(
+final _ruStrings = AppStrings(
   yearLabel: (y) => '$y год',
   months: [
     'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
@@ -53,10 +58,3 @@ const ruStrings = AppStrings(
   yesterday: 'Вчера',
   tomorrow: 'Завтра',
 );
-
-/// Returns UI language strings based on device locale.
-/// Defaults to Ukrainian if neither Ukrainian nor Russian.
-AppStrings getStrings(String localeCode) {
-  if (localeCode.startsWith('ru')) return ruStrings;
-  return ukStrings; // default to Ukrainian
-}
