@@ -47,20 +47,9 @@ public class IconSwitcher {
             PackageManager pm = context.getPackageManager();
             String pkg = context.getPackageName();
 
-            ComponentName[] allDays = new ComponentName[31];
-            for (int i = 0; i < 31; i++) {
-                String suffix = String.format(".Day%02d", i + 1);
-                allDays[i] = new ComponentName(pkg, pkg + suffix);
-            }
-
-            for (ComponentName cn : allDays) {
-                pm.setComponentEnabledSetting(
-                    cn,
-                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                    PackageManager.DONT_KILL_APP
-                );
-            }
-
+            // Step 1: Enable the target day FIRST.
+            // This guarantees at least one alias stays enabled, so the app
+            // is never stranded with zero launcher entries.
             String todaySuffix = String.format(".Day%02d", day);
             ComponentName todayAlias = new ComponentName(pkg, pkg + todaySuffix);
             pm.setComponentEnabledSetting(
@@ -68,6 +57,19 @@ public class IconSwitcher {
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                 PackageManager.DONT_KILL_APP
             );
+
+            // Step 2: Disable all other days.
+            for (int i = 0; i < 31; i++) {
+                int dayNum = i + 1;
+                if (dayNum == day) continue;
+                String suffix = String.format(".Day%02d", dayNum);
+                ComponentName cn = new ComponentName(pkg, pkg + suffix);
+                pm.setComponentEnabledSetting(
+                    cn,
+                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                    PackageManager.DONT_KILL_APP
+                );
+            }
         } catch (Exception e) {
             Log.e(TAG, "switchToDay failed", e);
         }

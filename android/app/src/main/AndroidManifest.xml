@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:label="granny_calendar"
@@ -381,6 +382,11 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
+        <!-- Event reminder alarm (fires notifications at scheduled times) -->
+        <receiver
+            android:name=".ReminderAlarmReceiver"
+            android:exported="false" />
 
         <meta-data
             android:name="flutterEmbedding"
